@@ -28,6 +28,8 @@ export default function Box(props){
     }
 
     function buttonHandler(){
+        inputValue
+        &&
         setItemArray(prev=>[
             ...prev,
             {
@@ -37,7 +39,19 @@ export default function Box(props){
         ])
     }
 
-    const itemCards =itemArray.map(object=><ItemCard itemName={object.text} />)
+    function itemClickHandler(){
+
+    }
+
+    const itemCards =itemArray.map(object=>
+    {
+        const a = object;
+    return <ItemCard 
+            itemName={object.text} 
+            key={object.id} 
+            click={itemClickHandler}/>
+        }
+    )
 
     return  <div className='box'>
         <div>
@@ -48,7 +62,9 @@ export default function Box(props){
          onChange={(event)=>inputHandler(event)}
          ></input>
         <button className='button' onClick={buttonHandler}>Add</button>
+        <div className='item_container'>
         {itemCards}
+        </div>
     </div>
     </div>
 }
