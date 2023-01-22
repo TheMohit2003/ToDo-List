@@ -1,7 +1,8 @@
 import React from 'react'
 import Input from './Input'
+import ItemCard from './ItemCard';
 import { nanoid } from 'nanoid'
-export default function Box(){
+export default function Box(props){
     /*
     following are the steps which we shall take in order for our todo list to complete .Here we go:
     1)the button should have a onClick button which triggers a function.
@@ -18,18 +19,36 @@ export default function Box(){
     6)As of now this is enough , start working on dark and light mode now.Rememember to add them in the footer
     */
 
-    const [todoElements,setToDoElements]=React.useState([]);
+    const[itemArray,setItemArray]=React.useState([]);
+    const[inputValue,setInputValue]=React.useState("");
 
-
-
-    function clickHandler(){
-        
+    function inputHandler(event){
+        const a = event.target.value;
+        setInputValue(a)
     }
+
+    function buttonHandler(){
+        setItemArray(prev=>[
+            ...prev,
+            {
+                "id":nanoid(),
+                "text":inputValue
+            }
+        ])
+    }
+
+    const itemCards =itemArray.map(object=><ItemCard itemName={object.text} />)
 
     return  <div className='box'>
         <div>
-        <input className='input' name='place' placeholder='project..'></input>
-        <button className='button' onClick={clickHandler}>Add</button>
+        <input 
+         className='input'
+         name='place'
+         placeholder='project..'
+         onChange={(event)=>inputHandler(event)}
+         ></input>
+        <button className='button' onClick={buttonHandler}>Add</button>
+        {itemCards}
     </div>
     </div>
 }
